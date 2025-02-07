@@ -6,18 +6,82 @@ import UserDetails from "./Pages/UserDetails/UserDetails";
 import Request from "./Pages/Request/Request";
 import EditRequests from "./Pages/EditRequests/editRequests";
 import Code from "./Pages/Code/Code";
+import AddCode from "./Pages/Code/AddCode";
+import ProtectedRoute from "./Components/ProtectedRoutes"; // Import ProtectedRoute
+import Admin from "./Pages/Admin/Admin";
 
 function App() {
   return (
     <>
       <Routes>
+        {/* Public Route */}
         <Route path="/" element={<Login />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/users" element={<Users />} />
-        <Route path="/users/:userId" element={<UserDetails />} />
-        <Route path="/requests" element={<Request />} />
-        <Route path="/editrequests" element={<EditRequests />} />
-        <Route path="/codes" element={<Code />} />
+
+        {/* Protected Routes */}
+        <Route
+          path="/home"
+          element={
+            <ProtectedRoute>
+              <Home />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/users"
+          element={
+            <ProtectedRoute>
+              <Users />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/users/:userId"
+          element={
+            <ProtectedRoute>
+              <UserDetails />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/requests"
+          element={
+            <ProtectedRoute>
+              <Request />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admins"
+          element={
+            <ProtectedRoute>
+              <Admin />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/editrequests"
+          element={
+            <ProtectedRoute>
+              <EditRequests />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/codes"
+          element={
+            <ProtectedRoute>
+              <Code />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/addcode"
+          element={
+            <ProtectedRoute>
+              <AddCode />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </>
   );

@@ -22,7 +22,7 @@ const authSlice = createSlice({
     name: "auth",
     initialState: {
         user: null,
-        token: Cookies.get("token") || null,
+        token: localStorage.getItem("token") || null,
         loading: false,
         error: null,
     },
@@ -30,7 +30,7 @@ const authSlice = createSlice({
         logout: (state) => {
             state.user = null;
             state.token = null;
-            Cookies.remove("token"); // Remove token from cookies
+            localStorage.removeItem("token");
         },
     },
     extraReducers: (builder) => {

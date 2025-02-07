@@ -2,6 +2,7 @@ import { useState } from "react";
 import { FaBars, FaHome, FaSignOutAlt, FaUser } from "react-icons/fa";
 import { MdVerified } from "react-icons/md";
 import { RiUserSettingsFill, RiUserSharedFill } from "react-icons/ri";
+import { FaUserShield } from "react-icons/fa";
 import { Link } from "react-router-dom";
 export default function Sidebar({ activeTab }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -63,6 +64,13 @@ export default function Sidebar({ activeTab }) {
             icon={<RiUserSettingsFill />}
             title="طلبات التعديل"
             to="/editrequests"
+            activeTab={activeTab}
+          />
+          <SidebarItem
+            isOpen={isOpen}
+            icon={<FaUserShield />}
+            title="المسؤلين"
+            to="/admins"
             activeTab={activeTab}
           />
           <SidebarItem

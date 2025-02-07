@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { useNavigate } from "react-router-dom";
 import Sidebar from "../../Components/Sidebar";
 import { Pagination } from "@mui/material";
 import axios from "axios";
@@ -9,12 +9,14 @@ import Loading from "../../Components/Loader/Loading";
 
 function Users() {
   const [users, setUsers] = useState([]);
+  const [filteredUsers, setFilteredUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [searchTerm, setSearchTerm] = useState(""); // New state for search
   const token = localStorage.getItem("token");
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -32,6 +34,7 @@ function Users() {
         });
 
         setUsers(response.data.users);
+        setFilteredUsers(response.data.users); // Initially, show all users
         setTotalPages(response.data.totalPages);
       } catch (err) {
         setError(err.response?.data?.message || "حدث خطأ أثناء جلب البيانات");
@@ -43,16 +46,24 @@ function Users() {
     fetchUsers();
   }, [page, token]);
 
+  useEffect(() => {
+    // Filter users based on search term
+    const filtered = users.filter(
+      (user) =>
+        user.username?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        user.privatenumber?.toString().includes(searchTerm)
+    );
+    setFilteredUsers(filtered);
+  }, [searchTerm, users]);
+
   const handlePageChange = (event, value) => {
     setPage(value);
   };
 
-  // Handle row click
   const handleRowClick = (userId) => {
-    navigate(`/users/${userId}`); // Navigate to user details page
+    navigate(`/users/${userId}`);
   };
 
-  // Arabic Field Mapping
   const fieldMappings = {
     id: "المعرف",
     username: "اسم المستخدم",
@@ -62,24 +73,22 @@ function Users() {
     privatenumber: "الرقم الخاص",
     phonenumber: "رقم الهاتف",
     height: "الطول",
-    weight: "الوزن",
     status: "الحالة",
     birthdate: "تاريخ الميلاد",
     jobtitle: "المسمى الوظيفي",
     livesin: "مكان الإقامة",
     fathernumber: "رقم الأب",
     brothernumber: "رقم الأخ",
+    role: "النوع",
   };
 
-  // Get only required fields dynamically
   const userFields =
-    users.length > 0
-      ? Object.keys(users[0]).filter((field) => fieldMappings[field]) // Exclude fields not in mappings
+    filteredUsers.length > 0
+      ? Object.keys(filteredUsers[0]).filter((field) => fieldMappings[field])
       : [];
   const arabicHeaders = userFields.map((field) => fieldMappings[field]);
 
-  // Format users data to match Arabic headers
-  const formattedData = users.map((user) => ({
+  const formattedData = filteredUsers.map((user) => ({
     المعرف: user.id,
     "اسم المستخدم": user.username,
     "الصورة الشخصية": user.profilepicture ? (
@@ -96,7 +105,6 @@ function Users() {
     "الرقم الخاص": user.privatenumber,
     "رقم الهاتف": user.phonenumber,
     الطول: user.height || "-",
-    الوزن: user.weight || "-",
     "تاريخ الميلاد": user.birthdate
       ? new Date(user.birthdate).toLocaleDateString("EG")
       : "-",
@@ -105,14 +113,13 @@ function Users() {
     "رقم الأب": user.fathernumber || "-",
     "رقم الأخ": user.brothernumber || "-",
     الحالة: user.status || "-",
+    النوع: user.role || "-",
   }));
 
   return (
     <div className="flex min-h-screen" dir="rtl">
-      {/* Sidebar */}
       <Sidebar activeTab="المستخدمين" />
 
-      {/* Main Content */}
       <div className="flex flex-col flex-1 px-24 py-8">
         {loading ? (
           <div className="flex justify-center items-center my-4">
@@ -122,14 +129,23 @@ function Users() {
           <p className="text-red-500 text-center">{error}</p>
         ) : (
           <>
-            {/* Table Component */}
+            {/* Search Input */}
+            <div className="mb-4 flex justify-center">
+              <input
+                type="text"
+                placeholder="ابحث برقم الخاص أو اسم المستخدم..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="border p-2 rounded-md w-1/2 text-right"
+              />
+            </div>
+
             <TableComponent
               headers={arabicHeaders}
               data={formattedData}
-              onRowClick={handleRowClick} // Pass the click handler
+              onRowClick={handleRowClick}
             />
 
-            {/* Pagination */}
             <div className="flex justify-center mt-4">
               <Pagination
                 count={totalPages}
