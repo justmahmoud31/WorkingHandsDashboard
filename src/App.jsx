@@ -9,6 +9,8 @@ import Code from "./Pages/Code/Code";
 import AddCode from "./Pages/Code/AddCode";
 import ProtectedRoute from "./Components/ProtectedRoutes"; // Import ProtectedRoute
 import Admin from "./Pages/Admin/Admin";
+import Ads from "./Pages/Ads/Ads";
+import AddAdmin from "./Pages/Admin/AddAdmin";
 
 function App() {
   return (
@@ -59,6 +61,14 @@ function App() {
           }
         />
         <Route
+          path="/addadmin"
+          element={
+            <ProtectedRoute>
+              <AddAdmin />
+            </ProtectedRoute>
+          }
+        />
+        <Route
           path="/editrequests"
           element={
             <ProtectedRoute>
@@ -71,6 +81,14 @@ function App() {
           element={
             <ProtectedRoute>
               <Code />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/ads"
+          element={
+            <ProtectedRoute>
+              <Ads />
             </ProtectedRoute>
           }
         />

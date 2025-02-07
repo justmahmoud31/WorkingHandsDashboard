@@ -4,10 +4,15 @@ import { MdVerified } from "react-icons/md";
 import { RiUserSettingsFill, RiUserSharedFill } from "react-icons/ri";
 import { FaUserShield } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logoutUser } from "../redux/authSlice";
+import { RiAdvertisementFill } from "react-icons/ri";
 export default function Sidebar({ activeTab }) {
   const [isOpen, setIsOpen] = useState(false);
+  const dispatch = useDispatch();
+  const token = localStorage.getItem("token");
   const handleLogout = () => {
-    localStorage.removeItem("token");
+    dispatch(logoutUser({token}));
     window.location.href = "/"; // Force refresh
   };
 
@@ -78,6 +83,13 @@ export default function Sidebar({ activeTab }) {
             icon={<MdVerified />}
             title="اكواد التحقق"
             to="/codes"
+            activeTab={activeTab}
+          />
+          <SidebarItem
+            isOpen={isOpen}
+            icon={<RiAdvertisementFill />}
+            title="اعلانات"
+            to="/ads"
             activeTab={activeTab}
           />
           <SidebarItem
