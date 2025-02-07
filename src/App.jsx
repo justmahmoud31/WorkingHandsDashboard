@@ -11,6 +11,8 @@ import ProtectedRoute from "./Components/ProtectedRoutes"; // Import ProtectedRo
 import Admin from "./Pages/Admin/Admin";
 import Ads from "./Pages/Ads/Ads";
 import AddAdmin from "./Pages/Admin/AddAdmin";
+import AddAdd from "./Pages/Ads/AddAdd";
+import EditAd from "./Pages/Ads/EditAd";
 
 function App() {
   return (
@@ -89,6 +91,22 @@ function App() {
           element={
             <ProtectedRoute>
               <Ads />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/addad"
+          element={
+            <ProtectedRoute>
+              <AddAdd />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/editad/:id"
+          element={
+            <ProtectedRoute>
+              <EditAd />
             </ProtectedRoute>
           }
         />
