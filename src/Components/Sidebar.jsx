@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logoutUser } from "../redux/authSlice";
 import { RiAdvertisementFill } from "react-icons/ri";
+import { CiTextAlignJustify } from "react-icons/ci";
 export default function Sidebar({ activeTab }) {
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
@@ -25,7 +26,7 @@ export default function Sidebar({ activeTab }) {
     <div className="flex">
       {/* Sidebar */}
       <div
-        className={`bg-second text-main h-screen p-5 pt-8 fixed top-0 right-0 transition-all duration-300 ${
+        className={`bg-second text-main min-h-screen p-5 pt-8 fixed top-0 right-0 transition-all duration-300 ${
           isOpen ? "w-60" : "w-16"
         }`}
       >
@@ -90,6 +91,13 @@ export default function Sidebar({ activeTab }) {
             icon={<RiAdvertisementFill />}
             title="اعلانات"
             to="/ads"
+            activeTab={activeTab}
+          />
+           <SidebarItem
+            isOpen={isOpen}
+            icon={<CiTextAlignJustify />}
+            title="النصوص"
+            to="/texts"
             activeTab={activeTab}
           />
           <SidebarItem

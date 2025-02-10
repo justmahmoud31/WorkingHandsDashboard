@@ -5,13 +5,26 @@ import { API_URL } from "../../../constants";
 import { Link } from "react-router-dom";
 
 const ADMIN_API_URL = `${API_URL}/api/users/getadmins`;
-
+import { MdDelete } from "react-icons/md";
 function Admin() {
   const [admins, setAdmins] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  const deleteAdmin = async (id) => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = axios.delete(`${API_URL}/api/users/deleteadmin/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      window.location.reload(false);
+      return response;
+    } catch (err) {
+      console.error(err);
+    }
+  };
   useEffect(() => {
     const fetchAdmins = async () => {
       const token = localStorage.getItem("token");
@@ -62,7 +75,10 @@ function Admin() {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
-          <Link to={"/addadmin"} className="bg-main px-3 py-2 text-white rounded-lg">
+          <Link
+            to={"/addadmin"}
+            className="bg-main px-3 py-2 text-white rounded-lg"
+          >
             اضف مسؤول
           </Link>
         </div>
@@ -79,11 +95,13 @@ function Admin() {
                   {/* <th className="border border-gray-300 p-2">الصورة</th> */}
                   <th className="border border-gray-300 p-2">الاسم</th>
                   <th className="border border-gray-300 p-2">اسم المستخدم</th>
+                  <th className="border border-gray-300 p-2">نوع المسؤول</th>
                   <th className="border border-gray-300 p-2">
                     البريد الإلكتروني
                   </th>
                   <th className="border border-gray-300 p-2">الرقم الخاص</th>
                   <th className="border border-gray-300 p-2">الحالة</th>
+                  <th className="border border-gray-300 p-2">حذف المسؤول</th>
                 </tr>
               </thead>
               <tbody>
@@ -102,6 +120,7 @@ function Admin() {
                     <td className="border border-gray-300 p-2">
                       {admin.username}
                     </td>
+                    <td className="border border-gray-300 p-2">{admin.role}</td>
                     <td className="border border-gray-300 p-2">
                       {admin.email}
                     </td>
@@ -116,6 +135,20 @@ function Admin() {
                       }`}
                     >
                       {admin.statusmode === "online" ? "متصل" : "غير متصل"}
+                    </td>
+                    <td className="border border-gray-300 p-2">
+                      <button
+                        className={
+                          admin.role == "admin"
+                            ? "hidden"
+                            : "bg-red-500 text-white px-2 py-2 rounded-lg cursor-pointer"
+                        }
+                        onClick={() => {
+                          deleteAdmin(admin.id);
+                        }}
+                      >
+                        <MdDelete />
+                      </button>
                     </td>
                   </tr>
                 ))}

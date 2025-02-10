@@ -13,6 +13,7 @@ import Ads from "./Pages/Ads/Ads";
 import AddAdmin from "./Pages/Admin/AddAdmin";
 import AddAdd from "./Pages/Ads/AddAdd";
 import EditAd from "./Pages/Ads/EditAd";
+import Texts from "./Pages/Texts/Texts";
 
 function App() {
   return (
@@ -115,6 +116,14 @@ function App() {
           element={
             <ProtectedRoute>
               <AddCode />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/texts"
+          element={
+            <ProtectedRoute>
+              <Texts />
             </ProtectedRoute>
           }
         />
