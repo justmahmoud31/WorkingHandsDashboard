@@ -1,1 +1,1 @@
-export const API_URL = "http://api.smartalrasd.com";
+export const API_URL = "https://api.smartalrasd.com";

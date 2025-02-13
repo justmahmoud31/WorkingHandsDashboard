@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Sidebar from "../../Components/Sidebar";
 import axios from "axios";
+import { API_URL } from "../../../constants";
 
 function AddAdd() {
   const [photos, setPhotos] = useState([]);
@@ -32,7 +33,7 @@ function AddAdd() {
     try {
       const token = localStorage.getItem("token");
 
-      const response = await axios.post("http://localhost:3000/api/ads/addad", formData, {
+      const response = await axios.post(`${API_URL}/api/ads/addad`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`,
