@@ -13,7 +13,7 @@ const TableComponent = ({ headers, data, onRowClick }) => {
   return (
     <TableContainer
       component={Paper}
-      className="overflow-hidden shadow-lg rounded-lg"
+      className="shadow-lg rounded-lg"
       sx={{
         fontFamily: "'Cairo', sans-serif", // Apply Cairo font
       }}

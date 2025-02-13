@@ -45,7 +45,7 @@ function UserDetails() {
       <Sidebar activeTab="المستخدمين" />
 
       {/* Main Content */}
-      <div className="flex flex-col flex-1 px-24 py-8">
+      <div className="flex flex-col flex-1 px-4 py-8">
         <div className="bg-white shadow-lg rounded-2xl p-6 flex flex-col gap-6">
           {/* User Profile */}
           <div className="flex lg:flex-row flex-col items-center gap-6">

@@ -47,11 +47,11 @@ const Home = () => {
       <Sidebar activeTab="الرئيسية" />
 
       {/* Main Content */}
-      <div className="flex flex-col flex-1 p-6">
+      <div className="flex flex-col pt-4 ">
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 px-20">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 px-2">
           {userloading ? (
-            <div className="col-span-3 flex justify-center">
+            <div className="col-span-3 flex justify-center items-center">
               <Loading />
             </div>
           ) : (
@@ -60,7 +60,7 @@ const Home = () => {
         </div>
 
         {/* Main Page Content */}
-        <div className="bg-white shadow-md rounded-lg p-6">
+        <div className="bg-white shadow-md rounded-lg ">
           <MainPage />
         </div>
       </div>

@@ -90,7 +90,8 @@ function Code() {
   return (
     <div className="flex min-h-screen" dir="rtl">
       <Sidebar activeTab="اكواد التحقق" />
-      <div className="flex flex-col flex-1 px-24 py-8">
+      <div className="flex flex-col flex-1 px-4 md:px-24 py-8" 
+      >
         <h1 className="text-2xl font-bold mb-4"> اكواد التحقق</h1>
         <div className="flex justify-end">
           <Link
@@ -102,103 +103,105 @@ function Code() {
         </div>
         {loading && <p>جاري التحميل...</p>}
         {error && <p className="text-red-500">{error}</p>}
-        <TableContainer component={Paper} className="mt-4">
-          <Table
-            sx={{
-              fontFamily: "'Cairo', sans-serif", // Apply Cairo font
-            }}
-          >
-            <TableHead>
-              <TableRow
-                sx={{
-                  color: "white",
-                  fontFamily: "'Cairo', sans-serif",
-                }}
-                className="bg-main"
-              >
-                <TableCell
-                  align="center"
-                  sx={{
-                    fontFamily: "'Cairo', sans-serif",
-                    fontWeight: "bold",
-                    color: "white",
-                  }}
-                >
-                  ID
-                </TableCell>
-                <TableCell
-                  align="center"
-                  sx={{
-                    fontFamily: "'Cairo', sans-serif",
-                    fontWeight: "bold",
-                    color: "white",
-                  }}
-                >
-                  الكود
-                </TableCell>
-                <TableCell
-                  align="center"
-                  sx={{
-                    fontFamily: "'Cairo', sans-serif",
-                    fontWeight: "bold",
-                    color: "white",
-                  }}
-                >
-                  عدد مرات الاستخدام
-                </TableCell>
-                <TableCell
-                  align="center"
-                  sx={{
-                    fontFamily: "'Cairo', sans-serif",
-                    fontWeight: "bold",
-                    color: "white",
-                  }}
-                >
-                  المستخدم
-                </TableCell>
-                <TableCell
-                  align="center"
-                  sx={{
-                    fontFamily: "'Cairo', sans-serif",
-                    fontWeight: "bold",
-                    color: "white",
-                  }}
-                >
-                  الإجراءات
-                </TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {codes.map((code) => (
+        <div >
+          <TableContainer component={Paper} className="mt-4">
+            <Table
+              sx={{
+                fontFamily: "'Cairo', sans-serif", // Apply Cairo font
+              }}
+            >
+              <TableHead>
                 <TableRow
-                  key={code.id}
                   sx={{
+                    color: "white",
                     fontFamily: "'Cairo', sans-serif",
                   }}
+                  className="bg-main"
                 >
-                  <TableCell align="center">{code.id}</TableCell>
-                  <TableCell align="center">{code.code}</TableCell>
-                  <TableCell align="center">{code.stock}</TableCell>
-                  <TableCell align="center">{code.used}</TableCell>
-                  <TableCell align="center">
-                    <button
-                      className="text-white bg-main px-2 py-2 rounded-lg lg:ml-2 my-2"
-                      onClick={() => handleOpenDialog(code.id, code.stock)}
-                    >
-                      <MdEdit size={20} />
-                    </button>
-                    <button
-                      className="text-white bg-red-600 px-2 py-2 rounded-lg "
-                      onClick={() => handleDelete(code.id)}
-                    >
-                      <MdDelete size={20} />
-                    </button>
+                  <TableCell
+                    align="center"
+                    sx={{
+                      fontFamily: "'Cairo', sans-serif",
+                      fontWeight: "bold",
+                      color: "white",
+                    }}
+                  >
+                    ID
+                  </TableCell>
+                  <TableCell
+                    align="center"
+                    sx={{
+                      fontFamily: "'Cairo', sans-serif",
+                      fontWeight: "bold",
+                      color: "white",
+                    }}
+                  >
+                    الكود
+                  </TableCell>
+                  <TableCell
+                    align="center"
+                    sx={{
+                      fontFamily: "'Cairo', sans-serif",
+                      fontWeight: "bold",
+                      color: "white",
+                    }}
+                  >
+                    عدد مرات الاستخدام
+                  </TableCell>
+                  <TableCell
+                    align="center"
+                    sx={{
+                      fontFamily: "'Cairo', sans-serif",
+                      fontWeight: "bold",
+                      color: "white",
+                    }}
+                  >
+                    المستخدم
+                  </TableCell>
+                  <TableCell
+                    align="center"
+                    sx={{
+                      fontFamily: "'Cairo', sans-serif",
+                      fontWeight: "bold",
+                      color: "white",
+                    }}
+                  >
+                    الإجراءات
                   </TableCell>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+              </TableHead>
+              <TableBody>
+                {codes.map((code) => (
+                  <TableRow
+                    key={code.id}
+                    sx={{
+                      fontFamily: "'Cairo', sans-serif",
+                    }}
+                  >
+                    <TableCell align="center">{code.id}</TableCell>
+                    <TableCell align="center">{code.code}</TableCell>
+                    <TableCell align="center">{code.stock}</TableCell>
+                    <TableCell align="center">{code.used}</TableCell>
+                    <TableCell align="center">
+                      <button
+                        className="text-white bg-main px-2 py-2 rounded-lg lg:ml-2 my-2"
+                        onClick={() => handleOpenDialog(code.id, code.stock)}
+                      >
+                        <MdEdit size={20} />
+                      </button>
+                      <button
+                        className="text-white bg-red-600 px-2 py-2 rounded-lg "
+                        onClick={() => handleDelete(code.id)}
+                      >
+                        <MdDelete size={20} />
+                      </button>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </div>
 
         {/* Edit Stock Dialog */}
         <Dialog open={open} onClose={handleCloseDialog}>

@@ -8,12 +8,14 @@ import { useDispatch } from "react-redux";
 import { logoutUser } from "../redux/authSlice";
 import { RiAdvertisementFill } from "react-icons/ri";
 import { CiTextAlignJustify } from "react-icons/ci";
+
 export default function Sidebar({ activeTab }) {
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
   const token = localStorage.getItem("token");
+
   const handleLogout = () => {
-    dispatch(logoutUser({token}));
+    dispatch(logoutUser({ token }));
     window.location.href = "/"; // Force refresh
   };
 
@@ -23,16 +25,15 @@ export default function Sidebar({ activeTab }) {
   };
 
   return (
-    <div className="flex">
+    <aside className="z-50">
       {/* Sidebar */}
       <div
-        className={`bg-second text-main min-h-screen p-5 pt-8 fixed top-0 right-0 transition-all duration-300 ${
-          isOpen ? "w-60" : "w-16"
-        }`}
+        className={`bg-second text-main h-full p-5 pt-8 transition-all duration-300 ${isOpen ? "w-60" : "w-16"
+          }`}
       >
         {/* Toggle Button */}
         <button
-          className="absolute top-4 left-5 text-main text-2xl cursor-pointer"
+          className="absolute top-4 -right-0 text-main text-2xl cursor-pointer bg-second rounded-full p-2 z-50" // Adjusted positioning
           onClick={toggleSidebar}
         >
           <FaBars />
@@ -40,9 +41,8 @@ export default function Sidebar({ activeTab }) {
 
         {/* Sidebar Content */}
         <ul
-          className={`mt-10 space-y-6 flex flex-col ${
-            isOpen ? "items-start" : "items-center"
-          }`}
+          className={`mt-10 space-y-6 flex flex-col ${isOpen ? "items-start" : "items-center"
+            }`}
         >
           <SidebarItem
             isOpen={isOpen}
@@ -93,7 +93,7 @@ export default function Sidebar({ activeTab }) {
             to="/ads"
             activeTab={activeTab}
           />
-           <SidebarItem
+          <SidebarItem
             isOpen={isOpen}
             icon={<CiTextAlignJustify />}
             title="النصوص"
@@ -106,11 +106,11 @@ export default function Sidebar({ activeTab }) {
             title="تسجيل الخروج"
             to="#"
             activeTab=""
-            onClick={handleLogout} // Pass the function here
+            onClick={handleLogout}
           />
         </ul>
       </div>
-    </div>
+    </aside>
   );
 }
 
@@ -123,7 +123,7 @@ const SidebarItem = ({ icon, title, isOpen, to, activeTab, onClick }) => {
       className={`flex items-center gap-3 cursor-pointer p-2 rounded-lg transition-all duration-300 
         ${isActive ? "bg-main text-second" : "hover:bg-main hover:text-second"}
       `}
-      onClick={onClick} // Allow handling clicks
+      onClick={onClick}
     >
       {to !== "#" ? (
         <Link to={to} className="flex items-center w-full gap-2">

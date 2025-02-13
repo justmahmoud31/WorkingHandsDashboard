@@ -104,7 +104,7 @@ const MainPage = () => {
   };
 
   return (
-    <div className="p-6">
+    <div className="p-2">
       <ToastContainer position="top-center" autoClose={3000} />
 
       {loading && (
