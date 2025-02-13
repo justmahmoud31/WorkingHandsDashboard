@@ -71,7 +71,7 @@ function AddAdmin() {
   return (
     <div className="flex min-h-screen" dir="rtl">
       <Sidebar activeTab="المسؤلين" />
-      <div className="flex flex-col flex-1 lg:px-24 pr-24 py-8">
+      <div className="flex flex-col flex-1 px-4  py-8">
         <h1 className="text-2xl font-bold mb-4">أضف مسؤول</h1>
 
         <form
