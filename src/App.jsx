@@ -1,10 +1,10 @@
 import { Route, Routes } from "react-router-dom";
-import Login from "./Pages/Login/login";
+import Login from "./Pages/Login/Login";
 import Home from "./Pages/Home/Home";
 import Users from "./Pages/Users/Users";
 import UserDetails from "./Pages/UserDetails/UserDetails";
 import Request from "./Pages/Request/Request";
-import EditRequests from "./Pages/EditRequests/editRequests";
+import EditRequests from "./Pages/EditRequests/EditRequests";
 import Code from "./Pages/Code/Code";
 import AddCode from "./Pages/Code/AddCode";
 import ProtectedRoute from "./Components/ProtectedRoutes"; // Import ProtectedRoute
