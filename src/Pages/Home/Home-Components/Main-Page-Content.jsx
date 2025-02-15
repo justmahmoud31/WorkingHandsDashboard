@@ -8,6 +8,7 @@ import {
   updateMainContent,
   updateMainImage,
 } from "../../../redux/mainSlice";
+import { API_URL } from "../../../../constants";
 
 const MainPage = () => {
   const dispatch = useDispatch();
@@ -142,9 +143,8 @@ const MainPage = () => {
               onChange={(e) => setEditDescription(e.target.value)}
             />
             <button
-              className={`bg-blue-500 hover:bg-blue-600 text-white px-5 py-2 rounded-md w-full font-semibold transition ${
-                isUpdating ? "opacity-50 cursor-not-allowed" : ""
-              }`}
+              className={`bg-blue-500 hover:bg-blue-600 text-white px-5 py-2 rounded-md w-full font-semibold transition ${isUpdating ? "opacity-50 cursor-not-allowed" : ""
+                }`}
               onClick={handleEdit}
               disabled={isUpdating}
             >
@@ -165,7 +165,7 @@ const MainPage = () => {
                 {/* Image Preview */}
                 <img
                   src={
-                    previewImages[img.id] || `http://localhost:3000/${img.url}`
+                    previewImages[img.id] || `${API_URL}/${img.url}`
                   }
                   alt={img.title}
                   className="w-full h-40 object-cover rounded-md"
