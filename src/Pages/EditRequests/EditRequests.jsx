@@ -52,6 +52,8 @@ function EditRequests() {
     "الاسم الجديد",
     "السكن الحالي",
     "السكن الجديد",
+    "تاريخ الميلاد الحالي",
+    "تاريخ الميلاد الجديد",
     "الإجراءات",
   ];
 
@@ -66,6 +68,8 @@ function EditRequests() {
     "الاسم الحالي": request.user.fullname,
     "الاسم الجديد": request.fullname,
     "السكن الحالي": request.user.livesin || "غير متاح",
+    "تاريخ الميلاد الحالي":request.user.birthdate,
+    "تاريخ الميلاد الجديد":request.birthdate,
     "السكن الجديد": request.livesin || "غير متاح",
     الإجراءات: (
       <div className="flex gap-2">
