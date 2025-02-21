@@ -24,7 +24,7 @@ export default function Login() {
   useEffect(() => {
     if (user) {
       if (user.role !== "user") {
-        navigate("/home");
+        navigate("/");
       } else if (loginAttempted) {
         setNotAdmin(true);
       }

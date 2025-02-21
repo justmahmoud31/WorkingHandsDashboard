@@ -5,16 +5,19 @@ import Sidebar from "../../Components/Sidebar";
 import { API_URL } from "../../../constants";
 
 function Texts() {
-  const [labels, setLabels] = useState([]); // Labels from API
-  const [article, setArticle] = useState(null); // "Who We Are"
-  const [privacyPolicy, setPrivacyPolicy] = useState(null); // "Privacy Policy"
+  const [labels, setLabels] = useState([]);
+  const [article, setArticle] = useState(null);
+  const [privacyPolicy, setPrivacyPolicy] = useState(null);
+  const [successMessage, setSuccessMessage] = useState(null);
   const [editingLabel, setEditingLabel] = useState(null);
   const [newLabel, setNewLabel] = useState("");
-  const [editingArticle, setEditingArticle] = useState(false); // Edit "Who We Are"
-  const [editingPrivacyPolicy, setEditingPrivacyPolicy] = useState(false); // Edit "Privacy Policy"
+  const [editingArticle, setEditingArticle] = useState(false);
+  const [editingPrivacyPolicy, setEditingPrivacyPolicy] = useState(false);
+  const [editingSuccessMessage, setEditingSuccessMessage] = useState(false);
   const [newArticleContent, setNewArticleContent] = useState("");
   const [newPrivacyPolicyContent, setNewPrivacyPolicyContent] = useState("");
-  
+  const [newSuccessMessage, setNewSuccessMessage] = useState("");
+
   const token = localStorage.getItem("token");
 
   // Fetch data on mount
@@ -34,6 +37,9 @@ function Texts() {
         const privacyPolicyResponse = await axios.get(`${API_URL}/api/article/one/2`);
         setPrivacyPolicy(privacyPolicyResponse.data.content);
         setNewPrivacyPolicyContent(privacyPolicyResponse.data.content.text); // Set default edit value
+        const succesMessageResponse = await axios.get(`${API_URL}/api/article/one/3`);
+        setSuccessMessage(succesMessageResponse.data.content);
+        setNewPrivacyPolicyContent(succesMessageResponse.data.content.text); // Set default edit value
       } catch (error) {
         toast.error("فشل تحميل البيانات");
         console.error("Error fetching data:", error);
@@ -95,7 +101,21 @@ function Texts() {
       console.error("Error updating privacy policy:", error);
     }
   };
-
+  const handleSuccessMessage = async () => {
+    try {
+      await axios.put(
+        `${API_URL}/api/article/editcontent/3`,
+        { newContent: newSuccessMessage },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      setSuccessMessage({ ...successMessage, text: newSuccessMessage });
+      toast.success("تم تحديث رسالة النجاح بنجاح");
+      setEditingSuccessMessage(false);
+    } catch (error) {
+      toast.error("فشل تحديث رسالة النجاح");
+      console.error("Error updating success message:", error);
+    }
+  };
   return (
     <div className="flex min-h-screen" dir="rtl">
       <Sidebar activeTab="النصوص" />
@@ -173,6 +193,28 @@ function Texts() {
             <div>
               <p className="text-gray-700 whitespace-pre-line">{privacyPolicy?.text}</p>
               <button onClick={() => setEditingPrivacyPolicy(true)} className="bg-green-500 text-white px-4 py-2 rounded mt-2">تعديل</button>
+            </div>
+          )}
+        </div>
+        <div className="bg-white p-6 rounded-lg shadow-md mt-6">
+          <h2 className="text-xl font-bold mb-2">رسالة النجاح</h2>
+          {editingSuccessMessage ? (
+            <div>
+              <textarea
+                className="w-full p-2 border rounded"
+                rows="6"
+                value={newSuccessMessage}
+                onChange={(e) => setNewSuccessMessage(e.target.value)}
+              />
+              <div className="flex gap-2 mt-2">
+                <button onClick={handleSuccessMessage} className="bg-blue-500 text-white px-4 py-2 rounded">حفظ</button>
+                <button onClick={() => setEditingSuccessMessage(false)} className="bg-gray-400 text-white px-4 py-2 rounded">إلغاء</button>
+              </div>
+            </div>
+          ) : (
+            <div>
+              <p className="text-gray-700 whitespace-pre-line">{successMessage?.text}</p>
+              <button onClick={() => setEditingSuccessMessage(true)} className="bg-green-500 text-white px-4 py-2 rounded mt-2">تعديل</button>
             </div>
           )}
         </div>

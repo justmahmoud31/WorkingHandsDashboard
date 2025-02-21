@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Sidebar from "../../Components/Sidebar";
 import axios from "axios";
@@ -10,7 +10,8 @@ function UserDetails() {
   const { userId } = useParams(); // Get userId from URL params
   const token = localStorage.getItem("token"); // Get token from Redux store
   const [userData, setUserData] = useState(null);
-
+  const [isDeleteing, setIsDeleting] = useState(false);
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -38,7 +39,21 @@ function UserDetails() {
       </div>
     );
   }
+  const deleteUser = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      setIsDeleting(true);
+      const response = await axios.delete(`${API_URL}/api/users/deleteuser/${userData.id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      navigate('/users');
+    } catch (err) {
+      console.log(err);
 
+    }
+  }
   return (
     <div className="flex min-h-screen" dir="rtl">
       {/* Sidebar */}
@@ -123,6 +138,9 @@ function UserDetails() {
                 <p>{userData.brothernumber || "غير متوفر"}</p>
               </div>
             </div>
+          </div>
+          <div className="flex justify-end items-center">
+            <button onClick={deleteUser} className="bg-red-500 text-white py-2 px-2 rounded-md font-semibold cursor-pointer">{isDeleteing ? "يتم الحذف" : "حذف المستخدم"}</button>
           </div>
         </div>
       </div>

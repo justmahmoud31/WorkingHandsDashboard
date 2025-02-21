@@ -4,7 +4,7 @@ import Home from "./Pages/Home/Home";
 import Users from "./Pages/Users/Users";
 import UserDetails from "./Pages/UserDetails/UserDetails";
 import Request from "./Pages/Request/Request";
-import EditRequests from "./Pages/EditRequests/EditRequests";
+import EditRequests from "./Pages/EditRequests/editRequests";
 import Code from "./Pages/Code/Code";
 import AddCode from "./Pages/Code/AddCode";
 import ProtectedRoute from "./Components/ProtectedRoutes"; // Import ProtectedRoute
@@ -20,11 +20,11 @@ function App() {
     <>
       <Routes>
         {/* Public Route */}
-        <Route path="/" element={<Login />} />
+        <Route path="/login" element={<Login />} />
 
         {/* Protected Routes */}
         <Route
-          path="/home"
+          path="/"
           element={
             <ProtectedRoute>
               <Home />

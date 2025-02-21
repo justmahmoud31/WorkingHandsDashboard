@@ -16,7 +16,7 @@ export default function Sidebar({ activeTab }) {
 
   const handleLogout = () => {
     dispatch(logoutUser({ token }));
-    window.location.href = "/"; // Force refresh
+    window.location.href = "/login"; // Force refresh
   };
 
   // Toggle sidebar state
