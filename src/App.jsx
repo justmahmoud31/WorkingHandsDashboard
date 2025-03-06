@@ -14,6 +14,8 @@ import AddAdmin from "./Pages/Admin/AddAdmin";
 import AddAdd from "./Pages/Ads/AddAdd";
 import EditAd from "./Pages/Ads/EditAd";
 import Texts from "./Pages/Texts/Texts";
+import OneCode from "./Pages/Code/OneCode";
+
 
 function App() {
   return (
@@ -84,6 +86,14 @@ function App() {
           element={
             <ProtectedRoute>
               <Code />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/code/:id"
+          element={
+            <ProtectedRoute>
+              <OneCode />
             </ProtectedRoute>
           }
         />

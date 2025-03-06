@@ -90,7 +90,7 @@ function Code() {
   return (
     <div className="flex min-h-screen" dir="rtl">
       <Sidebar activeTab="اكواد التحقق" />
-      <div className="flex flex-col flex-1 px-4 py-8" 
+      <div className="flex flex-col flex-1 px-4 py-8"
       >
         <h1 className="text-2xl font-bold mb-4"> اكواد التحقق</h1>
         <div className="flex justify-end">
@@ -179,7 +179,7 @@ function Code() {
                     }}
                   >
                     <TableCell align="center">{code.id}</TableCell>
-                    <TableCell align="center">{code.code}</TableCell>
+                    <TableCell align="center"><Link to={`/code/${code.id}`}>{code.code}</Link></TableCell>
                     <TableCell align="center">{code.stock}</TableCell>
                     <TableCell align="center">{code.used}</TableCell>
                     <TableCell align="center">
