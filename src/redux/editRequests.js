@@ -70,8 +70,7 @@ const initialState = {
     loading: false,
     error: null,
     currentPage: 1,
-    totalPages: 1, loading: false,
-    error: null,
+    totalPages: 1, 
 };
 
 const editRequestsSlice = createSlice({

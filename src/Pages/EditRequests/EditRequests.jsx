@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getEditRequests,
@@ -61,15 +61,15 @@ function EditRequests() {
     "رقم الطلب": request.id,
     "الصورة الشخصية": (
       <Avatar
-        src={`${API_URL}${request.user.profilepicture}`}
-        alt={request.user.fullname}
+        src={`${API_URL}${request?.user?.profilepicture}` || "/default-avatar.png"}
+        alt={request?.user?.fullname || "صورة غير متاحة"}
       />
     ),
-    "الاسم الحالي": request.user.fullname,
+    "الاسم الحالي": request?.user?.fullname || "غير متاح",
     "الاسم الجديد": request.fullname,
-    "السكن الحالي": request.user.livesin || "غير متاح",
-    "تاريخ الميلاد الحالي":request.user.birthdate,
-    "تاريخ الميلاد الجديد":request.birthdate,
+    "السكن الحالي": request?.user?.livesin || "غير متاح",
+    "تاريخ الميلاد الحالي": request?.user?.birthdate || "غير متاح",
+    "تاريخ الميلاد الجديد": request.birthdate || "غير متاح",
     "السكن الجديد": request.livesin || "غير متاح",
     الإجراءات: (
       <div className="flex gap-2">
